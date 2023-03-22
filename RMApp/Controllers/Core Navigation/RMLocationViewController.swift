@@ -1,19 +1,19 @@
 //
-//  ViewController.swift
+//  File.swift
 //  RMApp
 //
 //  Created by Catarina Polakowsky on 22.03.2023.
 //
 
 import UIKit
-
-class ViewController: UIViewController {
+/// Controller to show and search for location
+final class RMLocationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        title = "Location"
         // Do any additional setup after loading the view.
     }
 
-
 }
-
