@@ -16,8 +16,16 @@ final class RMCharacterViewController: UIViewController {
         title = "Character"
         // Do any additional setup after loading the view.
         
-        let request = RMRequest.init(endpoint: .character, pathComponents: ["2"], queryParameters: [URLQueryItem(name: "name", value: "rick"), URLQueryItem(name: "status", value: "alive")])
-        print(request.url)
-        
+        RMServive.shared.execute(.listCharacterRequest, expecting: RMGetAllCharactersResponse.self) { result in
+            switch result {
+            case .success(let model):
+                print("***Data has been recieved")
+                print("Total: \(String(model.info.count))")
+                break
+            case .failure(let error):
+                print(String(describing: error))
+            }
+            
+        }
     }
 }
