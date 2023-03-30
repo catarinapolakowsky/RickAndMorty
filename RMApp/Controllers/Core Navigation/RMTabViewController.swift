@@ -17,10 +17,7 @@ final class RMTabViewController: UITabBarController {
     }
     private func configure() {
         tabBar.tintColor = .systemGreen
-        tabBar.layer.borderColor = UIColor.systemGreen.cgColor
-        tabBar.layer.borderWidth = 1
-        tabBar.layer.masksToBounds = true
-        
+        tabBar.backgroundColor = .systemBackground
     }
     private func setupTabs() {
         let characterVC = RMCharacterViewController()

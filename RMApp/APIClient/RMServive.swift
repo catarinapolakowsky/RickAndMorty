@@ -25,7 +25,7 @@ final class RMServive {
     /// Send Rick and Morty API
     /// - Parameters:
     ///   - request: Request Instance
-    ///   - type: Type of object, pass a prefarable type(character, location, episode)
+    ///   - type: Type of object, pass a prefarable type(character, location, episode), needs to be decoded to the specific type, so pass type when calling the function
     ///   - completion: callback with data or error
     public func execute<T: Codable>(
         _ request: RMRequest,
@@ -64,3 +64,4 @@ final class RMServive {
 ///Notes along:
 /// generics  in the method allows to work with different type of data models
 
+///By creating a task based on a request object, you can tune various aspects of the task’s behavior, including the cache policy and timeout interval.
