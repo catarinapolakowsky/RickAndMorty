@@ -6,8 +6,14 @@
 //
 
 import UIKit
+
+protocol RMCharacterListViewDelegate: AnyObject {
+    func rmCharacterListView(_ characterListView: RMCharacterListView, didSelectCharacter character: RMCharacter)
+}
+
 ///View that handles showinglist of characters loader
-final class CharacterListView: UIView {
+final class RMCharacterListView: UIView {
+    public weak var delegate: RMCharacterListViewDelegate?
     
     private let viewModel = CharacterListViewViewModel()
     /// it's called an anonymous closure
@@ -23,10 +29,11 @@ final class CharacterListView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         collectionView.isHidden = true
         collectionView.alpha = 0
         collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier)
+        collectionView.register(RMFooterLoadingCollectCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectCollectionReusableView.identifier)
         
         return collectionView
     }()
@@ -68,13 +75,23 @@ final class CharacterListView: UIView {
     }
 }
 
-extension CharacterListView: CharacterListViewViewModelDelegate {
+extension RMCharacterListView: CharacterListViewViewModelDelegate {
+
+    func didSelectCharacter(_ character: RMCharacter) {
+        delegate?.rmCharacterListView(self, didSelectCharacter: character)
+    }
+    
     func didLoadInitialCharacters() {
         spinner.stopAnimating()
         collectionView.isHidden = false
         collectionView.reloadData()
         UIView.animate(withDuration: 0.4) {
             self.collectionView.alpha = 1
+        }
+    }
+    func didLoadMoreCharacters(at indexPath: [IndexPath]) {
+        collectionView.performBatchUpdates {
+            collectionView.insertItems(at: indexPath)
         }
     }
     

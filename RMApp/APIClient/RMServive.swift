@@ -42,6 +42,7 @@ final class RMServive {
                     completion(.failure( .failedToGetData))
                     return
                 }
+                print(request.url?.absoluteString ?? "")
                 //Decode Response
                 do {
                     let result = try JSONDecoder().decode(type.self, from: data)
