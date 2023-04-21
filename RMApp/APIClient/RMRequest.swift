@@ -40,12 +40,10 @@ final class RMRequest {
         // Query Items
         if !queryParameters.isEmpty {
             string += "?"
-            print(queryParameters)
             let argumentString = queryParameters.compactMap {
                 guard let value = $0.value else {return nil}
                 return "\($0.name)=\(value)"
             }.joined(separator: "&")
-            print(argumentString)
             string += argumentString
         }
         return string
@@ -74,6 +72,8 @@ final class RMRequest {
     }
     
     
+    /// Attempt to create a Request
+    /// - Parameter url: URL
     convenience init?(url: URL) {
         let string = url.absoluteString
         if !string.contains(Constants.baseUrl) {
@@ -85,8 +85,13 @@ final class RMRequest {
             let components = trimmed.components(separatedBy: "/")
             if !components.isEmpty {
                 let endpointString = components[0]
+                var pathComponents: [String] = []
+                if components.count > 1 {
+                    pathComponents = components
+                    pathComponents.removeFirst()
+                }
                 if let rmEndpoint = RMEndpoint(rawValue: endpointString) {
-                    self.init(endpoint: rmEndpoint)
+                    self.init(endpoint: rmEndpoint, pathComponents: pathComponents)
                     return
                 }
             }

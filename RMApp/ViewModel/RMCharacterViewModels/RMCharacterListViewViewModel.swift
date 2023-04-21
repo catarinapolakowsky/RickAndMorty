@@ -13,7 +13,7 @@ protocol CharacterListViewViewModelDelegate: AnyObject {
     func didLoadMoreCharacters(at indexPath: [IndexPath])
 }
 
-final class CharacterListViewViewModel: NSObject {
+final class RMCharacterListViewViewModel: NSObject {
     
     public weak var delegate: CharacterListViewViewModelDelegate?
     /// observer property. each time when character has been reloaded, we go through each characters and add each to the cellViewModel with three parameters: name, status and image
@@ -103,7 +103,7 @@ final class CharacterListViewViewModel: NSObject {
 
 // MARK: - collection data source
 
-extension CharacterListViewViewModel: UICollectionViewDataSource {
+extension RMCharacterListViewViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellViewModels.count
     }
@@ -138,7 +138,7 @@ extension CharacterListViewViewModel: UICollectionViewDataSource {
 
 // MARK: - setting custom layout for cell
 
-extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension RMCharacterListViewViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
         let width = (bounds.width - 30) / 2
@@ -153,7 +153,7 @@ extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionView
 }
 // MARK: - Scroll View
 
-extension CharacterListViewViewModel: UIScrollViewDelegate {
+extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard shouldShowMoreIndicator,

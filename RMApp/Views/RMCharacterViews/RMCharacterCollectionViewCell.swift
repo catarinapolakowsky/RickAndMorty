@@ -13,6 +13,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -46,6 +47,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.shadowOffset = .init(width: -3, height: 3)
         contentView.layer.shadowColor = UIColor.label.cgColor
+       
         contentView.layer.shadowOpacity = 0.5
     }
     

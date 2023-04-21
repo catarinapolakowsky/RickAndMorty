@@ -15,7 +15,9 @@ protocol RMCharacterListViewDelegate: AnyObject {
 final class RMCharacterListView: UIView {
     public weak var delegate: RMCharacterListViewDelegate?
     
-    private let viewModel = CharacterListViewViewModel()
+    private let viewModel = RMCharacterListViewViewModel()
+    
+    
     /// it's called an anonymous closure
     private let spinner: UIActivityIndicatorView = {
         var spinner = UIActivityIndicatorView(style: .large)
